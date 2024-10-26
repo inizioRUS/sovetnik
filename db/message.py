@@ -13,4 +13,4 @@ class Message(SqlAlchemyBase):
     chat_id = sqlalchemy.Column(sqlalchemy.String)
     entity = sqlalchemy.Column(sqlalchemy.String)
     text = sqlalchemy.Column(sqlalchemy.String)
-    time = sqlalchemy.Column(sqlalchemy.TIME)
+    time = sqlalchemy.Column(sqlalchemy.Integer)

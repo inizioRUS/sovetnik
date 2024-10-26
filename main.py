@@ -17,8 +17,6 @@ class QueryBody(BaseModel):
     chat_id: str
 
 
-class ReturnBody(BaseModel):
-    answer: str
 
 
 llm = LLMAggregate(Ollama(
@@ -41,5 +39,5 @@ db_session.global_init("db/data.sqlite")
 
 
 @app.post("/query")
-async def query(queryBody: QueryBody) -> ReturnBody:
+async def query(queryBody: QueryBody):
     return {"answer": askservice.ask(queryBody.service, queryBody.text, queryBody.source, queryBody.chat_id)}
