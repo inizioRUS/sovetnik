@@ -32,7 +32,7 @@ schema = CollectionSchema(
 )
 collection_name = "sibintek"
 
-client.drop_collection(collection_name=collection_name)
+#client.drop_collection(collection_name=collection_name)
 
 client.create_collection(collection_name=collection_name, schema=schema)
 
