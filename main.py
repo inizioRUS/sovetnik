@@ -17,11 +17,13 @@ class QueryBody(BaseModel):
     chat_id: str
 
 
+class QueryBody_sib(BaseModel):
+    text: str
 
 
 llm = LLMAggregate(Ollama(
     base_url="http://localhost:11434",
-    model="llama3.1:8b-instruct-q4_0",
+    model="llama3.1:8b",
     temperature=0,
     context_window=100000,
     request_timeout=120,
@@ -32,12 +34,17 @@ llm = LLMAggregate(Ollama(
 ))
 
 app = FastAPI()
-
-sevises = {"sibintek": SibintekService(llm), "vr": VRService(llm), "juridical": JuridicalService(llm)}
+sib = SibintekService(llm)
+sevises = {"vr": VRService(llm), "juridical": JuridicalService(llm)}
 askservice = AskService(sevises)
 db_session.global_init("db/data.sqlite")
 
 
 @app.post("/query")
 async def query(queryBody: QueryBody):
-    return {"answer": askservice.ask(queryBody.service, queryBody.text, queryBody.source, queryBody.chat_id)}
+    return askservice.ask(queryBody.service, queryBody.text, queryBody.source, queryBody.chat_id)
+
+
+@app.post("/query_sib")
+async def query_sib(queryBody: QueryBody_sib):
+    return sib.ask(queryBody.text)
