@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from llama_index.llms.ollama import Ollama
-
+from fastapi.middleware.cors import CORSMiddleware
 from askservice import AskService
+from dbMilvus import DbMilvus
 from llm.llm_aggregate import LLMAggregate
 from pipelines.sibintek import SibintekService
 from pipelines.vr import VRService
@@ -23,9 +24,9 @@ class QueryBody_sib(BaseModel):
 
 llm = LLMAggregate(Ollama(
     base_url="http://localhost:11434",
-    model="llama3.1:8b",
+    model="llama3.1:latest",
     temperature=0,
-    context_window=100000,
+    context_window=3000,
     request_timeout=120,
     additional_kwargs={
         "num_predict": 1024,
@@ -34,7 +35,15 @@ llm = LLMAggregate(Ollama(
 ))
 
 app = FastAPI()
-sib = SibintekService(llm)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
+db = DbMilvus("localhost", "19530")
+sib = SibintekService(db)
 sevises = {"vr": VRService(llm), "juridical": JuridicalService(llm)}
 askservice = AskService(sevises)
 db_session.global_init("db/data.sqlite")

@@ -16,7 +16,7 @@ ASSISTANT_PROMPT_TEMPLATE = "<|start_header_id|>assistant<|end_header_id|>\n\n{}
 
 ASSISTANT_PROMPT_TEMPLATE_END = "<|start_header_id|>assistant<|end_header_id|>\n\n"
 
-MAX_PROMPT_TOKENS = 100000
+MAX_PROMPT_TOKENS = 30000
 
 
 class LLMAggregate:
