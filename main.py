@@ -4,12 +4,11 @@ from llama_index.llms.ollama import Ollama
 from fastapi.middleware.cors import CORSMiddleware
 from askservice import AskService
 from dbMilvus import DbMilvus
-from llm.llm_aggregate import LLMAggregate
+from llm.llm_aggregate_api import LLMAggregate
 from pipelines.sibintek import SibintekService
 from pipelines.vr import VRService
 from pipelines.juridical import JuridicalService
 from db import db_session
-
 
 class QueryBody(BaseModel):
     service: str

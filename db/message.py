@@ -9,7 +9,9 @@ class Message(SqlAlchemyBase):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
+
     source = sqlalchemy.Column(sqlalchemy.String)
+    type_bot = sqlalchemy.Column(sqlalchemy.String)
     chat_id = sqlalchemy.Column(sqlalchemy.String)
     entity = sqlalchemy.Column(sqlalchemy.String)
     text = sqlalchemy.Column(sqlalchemy.String)
