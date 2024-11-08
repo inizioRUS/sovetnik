@@ -51,3 +51,11 @@ curl -X POST "https://billingweblab.ru.tuna.am/query" \
            "chat_id": "123"
          }'
 ```
+
+Документация:
+
+При локальной развертен:
+http://127.0.0.1:8007/docs
+
+На нашем сервере:
+http://78.24.223.82:8007/docs
