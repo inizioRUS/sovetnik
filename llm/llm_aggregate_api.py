@@ -3,7 +3,6 @@ from typing import Type
 from db import db_session
 from db.message import Message
 from .prompt import SYSTEM_PROMPTS
-from llama_index.llms.ollama import Ollama
 from openai import OpenAI
 import json
 
@@ -20,7 +19,7 @@ MAX_PROMPT_TOKENS = 30000
 
 
 class LLMAggregate:
-    def __init__(self, llm: Ollama):
+    def __init__(self, llm):
         self.client = OpenAI(
             api_key="sk-or-vv-3f0b8eb4592db2ae5a8d8f371b666de903a291f69f3f0acc45bdfc4df3dc0aff",
             base_url="https://api.vsegpt.ru/v1",
