@@ -1,12 +1,9 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from llama_index.llms.ollama import Ollama
 from fastapi.middleware.cors import CORSMiddleware
 from askservice import AskService
 from llm.llm_aggregate_api import LLMAggregate
-from pipelines.sibintek import SibintekService
-from pipelines.vr import VRService
-from pipelines.juridical import JuridicalService
+from pipelines.oldsaratov import OldsaratovService
 from db import db_session
 
 class QueryBody(BaseModel):
@@ -30,7 +27,7 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
-sevises = {"vr": VRService(llm), "juridical": JuridicalService(llm)}
+sevises = { "oldsaratov": OldsaratovService(llm)}
 askservice = AskService(sevises)
 db_session.global_init("db/data.sqlite")
 
